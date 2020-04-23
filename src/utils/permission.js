@@ -35,17 +35,17 @@ router.beforeEach((to, from, next) => {
             next({ path: '/' });
             NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
         } else {
-            console.log('____________正常登录_____________');
+            console.log('____________初次登录_____________');
 
             if (store.getters.roles.length === 0) {
                 store.dispatch('GetInfo').then(res => { // 拉取用户信息
 
-                    const roles = res.roles; // note: roles must be a array! such as: ['editor','develop']
+                    // const roles = res.roles; // note: roles must be a array! such as: ['editor','develop']
 
-                    store.dispatch('generateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
-                        router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
-                        next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-                    })
+                    // store.dispatch('generateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
+                    //     router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
+                    //     next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+                    // })
 
                 }).catch((err) => {
 
@@ -54,8 +54,11 @@ router.beforeEach((to, from, next) => {
                         next({ path: '/' })
                     })
                 })
+
+
+
             } else {
-                console.log('++++++++++无权限登录++++++++++++');
+                console.log('++++++++++已登录权限校验++++++++++++');
                 // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
                 if (hasPermission(store.getters.roles, to.meta.roles)) {
                     next()//

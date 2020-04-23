@@ -1,5 +1,6 @@
 <template>
-    <div>登录页</div>
+    <div>登录页
+    <el-button type="primary" @click="handleLogin">登录</el-button></div>
 </template>
 
 <script>
@@ -7,7 +8,10 @@
         name: "Login",
         data(){
             return{
-
+                loginForm: {
+                    username: '',
+                    password: '',
+                },
             }
         },
         methods:{

@@ -62,7 +62,6 @@ const errorHandler = (status,msg)=>{
  // 请求拦截器
 service.interceptors.request.use(
     config => {
-        // NProgress.start(); // 设置加载进度条(开始..)
         if (TokenFactory.getToken()) { //判断token是否存在
             config.headers = {
                 'Authorization': 'Bearer'+' '+TokenFactory.getToken(),
@@ -86,7 +85,6 @@ service.interceptors.response.use(res =>{
         }else{
             return res.data;
         }
-    // NProgress.done() // 设置加载进度条(结束..)
 },error => {
     //请求失败时
     if (error.response){

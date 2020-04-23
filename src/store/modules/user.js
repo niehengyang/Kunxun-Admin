@@ -6,6 +6,7 @@ const user = {
         token: TokenFactory.getToken(),
         name: '',
         roles: [],
+        permissions: [],
     },
 
     mutations: {
@@ -21,6 +22,9 @@ const user = {
         SET_ROLES: (state, roles) => {
             state.roles = roles
         },
+        SET_PERMISSIONS: (state, permissions)=>{
+            state.permissions = permissions
+        }
     },
 
     actions: {
@@ -51,7 +55,8 @@ const user = {
                         reject('getInfo: roles must be a non-null array !')
                     }
                     commit('SET_NAME', data.name);
-                    commit('SET_AVATAR', data.avatar);
+                    commit('SET_AVATAR', data.avatar);//头像
+                    commit('SET_PERMISSIONS', data.permissions);//权限树
                     resolve(response)
                 }).catch(error => {
                     reject(error)
@@ -65,7 +70,7 @@ const user = {
                 logout(state.token).then(() => {
                     commit('SET_TOKEN', '');
                     commit('SET_ROLES', []);
-                    // commit('CLEAR_LOCK');
+                    commit('SET_PERMISSIONS', []);//权限树
                     TokenFactory.clearToken();
                     resolve()
                 }).catch(error => {
@@ -82,6 +87,7 @@ const user = {
                 resolve()
             })
         },
+
         // // 动态修改权限
         // ChangeRoles({ commit }, role) {
         //     return new Promise(resolve => {
