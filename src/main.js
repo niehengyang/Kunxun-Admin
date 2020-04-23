@@ -11,17 +11,7 @@ import router from '../src/router/index'
 
 
 //权限校验
-// import'../src/utils/permission'
-
-//引入Api
-// import portalApi from "./apis/portalApi";
-
-// portalApi.initData().then(function (res) {
-//
-//   window.__login_user__ = res.data;
-//
-//   new Vue(Vue.util.extend({router,store}, App)).$mount('#app');
-// });
+import'./utils/permission'
 
 
 new Vue({

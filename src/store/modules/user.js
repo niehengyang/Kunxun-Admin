@@ -7,6 +7,7 @@ const user = {
         name: '',
         roles: [],
     },
+
     mutations: {
         SET_TOKEN: (state, token) => {
             state.token = token
@@ -73,14 +74,14 @@ const user = {
             })
         },
 
-        // // 前端 登出
-        // FedLogOut({ commit }) {
-        //     return new Promise(resolve => {
-        //         commit('SET_TOKEN', '');
-        //         TokenFactory.clearToken();
-        //         resolve()
-        //     })
-        // },
+        // 前端 登出
+        FedLogOut({ commit }) {
+            return new Promise(resolve => {
+                commit('SET_TOKEN', '');
+                TokenFactory.clearToken();
+                resolve()
+            })
+        },
         // // 动态修改权限
         // ChangeRoles({ commit }, role) {
         //     return new Promise(resolve => {
