@@ -11,7 +11,7 @@ import router from '../src/router/index'
 
 
 //权限校验
-import'../src/utils/permission'
+// import'../src/utils/permission'
 
 //引入Api
 // import portalApi from "./apis/portalApi";

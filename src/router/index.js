@@ -30,7 +30,7 @@ routeArray = routeArray.concat(AccountRouterArray);
 
 /* 实例化Vuejs路由对象 */
 const routers = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     // base: process.env.BASE_URL,
     routes: routeArray
 });
