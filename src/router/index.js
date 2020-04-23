@@ -8,7 +8,7 @@ import VueRouter from 'vue-router';
 export const constantRoutes = [
     {
         path: '/',
-        redirect: '/login'
+        redirect: '/layout'
     },
     {
         path: '/login',
@@ -25,6 +25,11 @@ export const constantRoutes = [
         component: () => import('../views/errorPage/401.vue'),
         hidden: true
     },
+    {
+        path: '/layout',
+        component: ()=> import('../views/layout/Layout.vue'),
+        hidden: true
+    }
 ];
 
 
