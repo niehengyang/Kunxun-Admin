@@ -11,9 +11,6 @@
       <!------递增导航------>
       <!--<navbar></navbar>-->
 
-      <!---------tags------------>
-      <!--<tags-view></tags-view>-->
-
       <!---------主要内容------------>
       <app-main></app-main>
     </div>
@@ -21,15 +18,14 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain, TagsView } from './components'
+import { Navbar, Sidebar, AppMain } from './components'
 
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain,
-    TagsView
+    AppMain
   },
   mixins: [],
   computed: {
