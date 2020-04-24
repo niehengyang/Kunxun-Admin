@@ -5,12 +5,14 @@ import layout from '../views/layout/Layout.vue';
 
 const routeArray = [];
 
+
 /* 加载权限路由模块 */
 import AccountRouterArray from "./modules/account";
 import RoleRouterArray from "./modules/role";
+import PermissionRouterArray from "./modules/permission";
 
 
-export const asyncRoutes = routeArray.concat(AccountRouterArray,RoleRouterArray);
+export const asyncRoutes = routeArray.concat(AccountRouterArray,RoleRouterArray,PermissionRouterArray);
 
 
 
