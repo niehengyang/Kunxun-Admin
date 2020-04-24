@@ -10,11 +10,11 @@
  *
  */
 
-let baseUrl = ''
-const iconfontVersion = ['567566_r22zi6t8noas8aor']
-const iconfontUrl = `//at.alicdn.com/t/font_$key.css`
-const codeUrl = `${baseUrl}/code`
-const env = process.env
+let baseUrl = '';
+// const iconfontVersion = ['567566_r22zi6t8noas8aor'];
+// const iconfontUrl = `//at.alicdn.com/t/font_$key.css`;
+// const codeUrl = `${baseUrl}/code`
+const env = process.env;
 if (env.NODE_ENV === 'development') {
   baseUrl = `` // 开发环境地址
 } else if (env.NODE_ENV === 'production') {
@@ -24,8 +24,8 @@ if (env.NODE_ENV === 'development') {
 }
 export {
   baseUrl,
-  iconfontUrl,
-  iconfontVersion,
-  codeUrl,
+  // iconfontUrl,
+  // iconfontVersion,
+  // codeUrl,
   env
 }

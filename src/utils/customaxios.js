@@ -28,14 +28,16 @@ const toLogin = ()=>{
         message : '登录超时，请重新登录。3秒后将跳回登录页',
         onClose:() => {
             TokenFactory.clearToken();
-            window.location.href = '/login'
+            // window.location.href = '/login';
+            this.$router.push({path: '/login'});
         }
     });
 };
 
 //跳转到404页面
 const to404Page = ()=>{
-    window.location.href = '/error404'
+    // window.location.href = '/404';
+    this.$router.push({path: '/404'});
 };
 
 //请求失败的错误统一处理

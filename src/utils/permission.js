@@ -24,7 +24,7 @@ function hasPermission(roles, permissionRoles) {
     return roles.some(role => permissionRoles.indexOf(role) >= 0)
 }
 
-const whiteList = ['/login','/account/list/','/401']; // 不重定向白名单
+const whiteList = ['/login','/401','/404','/role/list/']; // 不重定向白名单
 
 router.beforeEach((to, from, next) => {
     NProgress.start();
@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
 
                     store.dispatch('FedLogOut').then(() => {
                         Message.error(err || 'Verification failed, please login again');
-                        next({ path: '/' })
+                        next({ path: '/' });
                     })
                 })
 
@@ -61,9 +61,9 @@ router.beforeEach((to, from, next) => {
                 console.log('++++++++++已登录权限校验++++++++++++');
                 // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
                 if (hasPermission(store.getters.roles, to.meta.roles)) {
-                    next()//
+                    next();//
                 } else {
-                    next({ path: '/401', replace: true, query: { noGoBack: true }})
+                    next({ path: '/401', replace: true, query: { noGoBack: true }});
                 }
             }
         }
@@ -71,10 +71,10 @@ router.beforeEach((to, from, next) => {
         /* has no token*/
         console.log('*************未登录************');
         if (whiteList.indexOf(to.path) !== -1) {
-            next()
+            next();
         } else {
             next('/login');
-            NProgress.done()
+            NProgress.done();
         }
     }
 });
