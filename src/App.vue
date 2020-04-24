@@ -5,7 +5,7 @@
     <router-view></router-view>
   </div>
 </template>
-
+<style src="../src/assets/css/app.css"></style>
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import { mapGetters } from 'vuex'
