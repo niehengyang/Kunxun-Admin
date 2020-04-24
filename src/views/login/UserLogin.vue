@@ -1,5 +1,5 @@
 <template>
-    <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
+    <el-form class="login-form" :rules="loginRules" ref="loginForm" :model="loginForm">
         <el-form-item prop="username">
             <el-input prefix-icon="el-icon-user"
                       size="small"
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-    import { isvalidUsername } from '@/utils/validate'
     export default {
         name: 'userlogin',
         data() {
