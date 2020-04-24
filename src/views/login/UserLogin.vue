@@ -41,7 +41,7 @@
                 } else {
                     callback()
                 }
-            }
+            };
             return {
                 loginForm: {
                     username: 'admin',
