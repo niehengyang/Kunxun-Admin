@@ -3,7 +3,7 @@
         <el-form-item prop="username">
             <el-input prefix-icon="el-icon-user"
                       size="small"
-                      @keyup.enter.native="handleLogin"
+                      @keyup.enter.native="handleLogin('loginForm')"
                       v-model="loginForm.username"
                       auto-complete="off"
                       placeholder="请输入用户名"></el-input>
@@ -11,7 +11,7 @@
         <el-form-item prop="password">
             <el-input prefix-icon="el-icon-lock"
                       size="small"
-                      @keyup.enter.native="handleLogin"
+                      @keyup.enter.native="handleLogin('loginForm')"
                       show-password
                       v-model="loginForm.password"
                       auto-complete="off"
@@ -22,20 +22,21 @@
         <el-form-item>
             <el-button type="primary"
                        size="small"
-                       @click.native.prevent="handleLogin"
-                       class="login-submit">登录</el-button>
+                       @click.native.prevent="handleLogin('loginForm')"
+                       class="login-submit" :loading="submitLoading">登录</el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script>
+    import CryptoJS from "crypto-js";
     export default {
         name: 'userlogin',
         data() {
             const validateCode = (rule, value, callback) => {
                 if (this.code.value !== value) {
-                    this.loginForm.code = ''
-                    this.refreshCode()
+                    this.loginForm.code = '';
+                    this.refreshCode();
                     callback(new Error('请输入正确的验证码'))
                 } else {
                     callback()
@@ -46,6 +47,7 @@
                     username: 'admin',
                     password: '123456'
                 },
+                submitLoading: false,
                 checked: false,
                 code: {
                     src: '',
@@ -78,15 +80,71 @@
         },
         props: [],
         methods: {
-            handleLogin() {
-                this.$refs.loginForm.validate(valid => {
+            handleLogin(formName) {
+                let pwd = false;
+                let iv = '1234567890123456';
+                let key = '1234567890654321';
+                let oldPwd = this.loginForm.password;
+
+                pwd = this.encrypt(oldPwd,key,iv);
+
+                this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$store.dispatch('Login', this.loginForm).then(res => {
-                            this.$router.push({ path: '/' })
-                        })
+                        this.submitLoading = true;
+                        // 通过验证
+                        if (pwd){
+                            this.loginForm.password = pwd;
+                            this.$store.dispatch('Login', this.loginForm).then(res => {
+                                this.submitLoading = false;
+                                window.location.href = '/';
+                            }).catch( (error) =>{
+                                let message = "程序错误!";
+                                if(error.response){
+                                    message =  error.response.data.message;
+                                    // 打印错误信息
+                                    this.$message({
+                                        message: message,
+                                        type: 'error'
+                                    });
+                                }
+                                this.submitLoading = false;
+                                this.loginForm.password = oldPwd;
+                                // this.getCaptcha();
+                            })
+                        }else{
+                            //加密错误
+                            this.submitLoading = false;
+                            this.loginForm.password = oldPwd;
+                            this.$message({
+                                message: '加密错误',
+                                type: 'error'
+                            });
+                        }
                     }
                 })
-            }
+            },
+
+            /**
+             * 接口数据加密函数
+             * @param str string 需加密的json字符串
+             * @param key string 加密key(16位)
+             * @param iv string 加密向量(16位)
+             * @return string 加密密文字符串
+             */
+            encrypt(str, key, iv){
+                //密钥16位
+                let keyd = CryptoJS.enc.Utf8.parse(key);
+                //加密向量16位
+                let ivd = CryptoJS.enc.Utf8.parse(iv);
+
+                let encrypted = CryptoJS.AES.encrypt(str, keyd, {
+                    iv: ivd,
+                    mode: CryptoJS.mode.CBC,
+                    padding: CryptoJS.pad.ZeroPadding
+                }).toString();
+                return encrypted;
+            },
+
         }
     }
 </script>

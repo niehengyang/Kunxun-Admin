@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
         } else {
             console.log('____________初次登录_____________');
 
-            if (store.getters.roles.length === 0) {
+            if (store.getters.permission_routers.length === 0){
                 store.dispatch('GetInfo').then(res => { // 拉取用户信息
 
                     store.dispatch('generateRoutes').then((res) => { // 拉取路由表
@@ -44,10 +44,10 @@ router.beforeEach((to, from, next) => {
                         next({ path: '/' });
                     })
                 })
-
-            } else {
-                    next();
+            } else{
+                next();
             }
+
         }
     } else {
         /* has no token*/
