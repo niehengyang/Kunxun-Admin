@@ -1,13 +1,10 @@
 <template>
   <div id="app">
-    <!--<img alt="Vue logo" src="./assets/logo.png">-->
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <router-view></router-view>
   </div>
 </template>
 <style src="../src/assets/css/app.css"></style>
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import { mapGetters } from 'vuex'
 export default {
   name: 'App',
@@ -17,7 +14,6 @@ export default {
     }
   },
   components: {
-    HelloWorld
   },
   computed: {
     ...mapGetters([
