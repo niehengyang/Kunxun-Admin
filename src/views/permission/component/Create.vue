@@ -2,7 +2,15 @@
     <el-row>
         <div class="add-from">
             <el-form :model="addForm" :rules="rules" ref="addForm"
-                     label-width="100px" class="demo-ruleForm" size="small">
+                     label-width="110px" class="demo-ruleForm" size="small">
+
+                <el-form-item label="权限性质" prop="type">
+                    <el-radio-group v-model="addForm.type" @change="handleChangeType">
+                        <el-radio label="nav">导航</el-radio>
+                        <el-radio label="api">操作</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+
                 <el-form-item label="菜单名称" prop="name">
                     <el-input class="form-input" v-model="addForm.name" placeholder="请输入菜单名称"></el-input>
                 </el-form-item>
@@ -21,15 +29,33 @@
                     <el-input class="form-input" v-model="addForm.route" placeholder="请输入路由（/*）"></el-input>
                 </el-form-item>
 
-                <el-form-item label="菜单性质" prop="type">
-                    <el-radio-group v-model="addForm.type" @change="handleChangeType">
-                        <el-radio label="nav">导航</el-radio>
-                        <el-radio label="api">API</el-radio>
+                <el-form-item label="图标类型" prop="icon_type" v-if="addForm.type == 'nav'">
+                    <el-radio-group v-model="addForm.icon_type" @change="handleChangeType">
+                        <el-radio label="nav">引用</el-radio>
+                        <el-radio label="api">上传</el-radio>
+                        <el-radio label="das">序列化</el-radio>
                     </el-radio-group>
                 </el-form-item>
 
-                <el-form-item label="导航图标" prop="icon" v-if="addForm.type == 'nav'">
+                <el-form-item label="导航图标" prop="icon" v-if="addForm.icon_type == 'nav'">
                     <el-input class="form-input" v-model="addForm.icon" placeholder="请输入导航图标"></el-input>
+                </el-form-item>
+
+                <el-form-item label="上传图标" prop="icon" v-if="addForm.icon_type == 'api'">
+                    <el-upload
+                            class="icon-uploader"
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            :show-file-list="false"
+                            accept="image/jpeg,image/gif,image/png,image/svg"
+                            :on-success="handleAvatarSuccess1"
+                            :before-upload="beforeAvatarUpload1">
+                        <img v-if="iconUrl" :src="iconUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-form-item>
+
+                <el-form-item label="序列化图标" prop="icon" v-if="addForm.icon_type == 'das'">
+
                 </el-form-item>
 
                 <el-form-item label="导航标识" prop="index_value" v-if="addForm.type == 'nav'" :rules="[
@@ -79,10 +105,12 @@
                     parent_id: 0,
                     route: '',
                     type: 'nav',
+                    icon_type: 'nav',
                     icon: '',
                     status: '1',
                     sort: 1,
                 },
+                iconUrl: '',
                 rules: {
                     name: [
                         { required: true, message: '请输入菜单名称', trigger: 'blur' },
@@ -119,45 +147,45 @@
         created(){
 
         },
-        methods:{
+        methods: {
 
             //提交创建
-            handleSubmitForm(formName){
+            handleSubmitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.addLoading = true;
                         let type = this.addForm.type;
-                        this.$api.restfulApi.create('permission/create',this.addForm).then((res)=>{
+                        this.$api.restfulApi.create('permission/create', this.addForm).then((res) => {
                             this.handleFormClose(formName);
                             this.$message.success({showClose: true, message: res.msg, duration: 2000});
-                            this.$emit('submitCreate',type);
+                            this.$emit('submitCreate', type);
                         });
                     }
                 });
             },
 
             //关闭添加
-            handleCloseAdd(){
+            handleCloseAdd() {
                 this.handleFormClose('addForm');
             },
 
 
             //表单关闭
-            handleFormClose(formName){
+            handleFormClose(formName) {
                 this.addLoading = false;
                 this.$refs[formName].resetFields();
-                this.$emit('closeAdd',formName);
+                this.$emit('closeAdd', formName);
             },
 
             //填充父级菜单
-            handleMenuOption(val){
+            handleMenuOption(val) {
                 this.permissionOptions = [{id: 0, display_name: '无'}];
-                if (val){
+                if (val) {
                     this.addForm.parent_id = 0;
                     let params = {
                         type: this.addForm.type
                     };
-                    this.$api.restfulApi.list('permission/all',params).then((res)=>{
+                    this.$api.restfulApi.list('permission/all', params).then((res) => {
 
                         this.permissionOptions = this.permissionOptions.concat(res.data);
                     });
@@ -165,12 +193,32 @@
             },
 
             //更换性质
-            handleChangeType(val){
+            handleChangeType(val) {
                 this.permissionOptions = [{id: 0, display_name: '无'}];
                 this.addForm.parent_id = 0;
                 this.addForm.index_value = '';
                 this.addForm.icon = '';
             },
+
+            /**--------------------图标上传----------------------**/
+            handleAvatarSuccess1(res, file) {
+                this.iconUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload1(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
+
+            /**--------------------图标序列化----------------------**/
+
         }
     }
 </script>
@@ -189,5 +237,30 @@
         width: 260px;
         font-size: 1px;
         text-indent: 0.5px;
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border: 1px solid #B3C0D1;
+    }
+    .avatar {
+        width: 40px;
+        height: 40px;
+        display: block;
     }
 </style>

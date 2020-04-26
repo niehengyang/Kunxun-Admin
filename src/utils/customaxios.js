@@ -42,7 +42,7 @@ const to404Page = ()=>{
 //请求失败的错误统一处理
 const errorHandler = (status,msg)=>{
     switch (status){
-        case 304:  errorTip('方法(400)');break;
+        case 304:  errorTip('请求无更改(304)');break;
         case 400:  errorTip('错误的请求(400)');break;
         case 401: toLogin(); break;
         case 403: errorTip('禁止访问(403)'); break;

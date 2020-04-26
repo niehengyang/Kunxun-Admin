@@ -80,7 +80,7 @@
 
         <el-row class="dialog-box">
             <el-dialog
-                    title="添加菜单"
+                    title="添加权限"
                     :visible.sync="addVisible"
                     width="50%"
                     :before-close="handleCloseAdd">
@@ -88,7 +88,7 @@
             </el-dialog>
 
             <el-dialog
-                    title="编辑菜单"
+                    title="编辑权限"
                     :visible.sync="editVisible"
                     width="50%"
                     :before-close="handleCloseEdit">
