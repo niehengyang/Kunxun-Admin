@@ -6,7 +6,6 @@ const user = {
         token: TokenFactory.getToken(),
         name: '',
         roles: [],
-        permissions: [],
     },
 
     mutations: {
@@ -21,9 +20,6 @@ const user = {
         },
         SET_ROLES: (state, roles) => {
             state.roles = roles
-        },
-        SET_PERMISSIONS: (state, permissions)=>{
-            state.permissions = permissions
         }
     },
 
@@ -57,7 +53,6 @@ const user = {
                     }
                     commit('SET_NAME', data.name);
                     // commit('SET_AVATAR', data.avatar);//头像
-                    commit('SET_PERMISSIONS', data.permissions);//权限树
                     resolve(response.data)
                 }).catch(error => {
                     reject(error)

@@ -38,22 +38,31 @@ export function filterAsyncRoutes(routes, roles) {
 const state = {
   routes: [],
   addRoutes: [],
+  permissions: []
 };
 
 const mutations = {
+
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes;
     state.routes = constantRoutes.concat(routes)
+  },
+  SET_PERMISSIONS: (state, permissions)=>{
+    state.permissions = permissions
   }
 };
 
 const actions = {
 
-  generateRoutes({ commit }, roles) {
+  generateRoutes({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getPermissions(state.token).then(response => {
+      getMenus(state.token).then(response => {
         const data = response.data;
-        commit('SET_PERMISSIONS', data.permissions);//权限树
+        if (data && data.length > 0) { // 验证返回的roles是否是一个非空数组
+          commit('SET_PERMISSIONS', data.permissions);//权限树
+        } else {
+          reject('getInfo: roles must be a non-null array !')
+        }
         resolve(response)
       }).catch(error => {
         reject(error)

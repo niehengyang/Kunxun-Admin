@@ -33,7 +33,10 @@ router.beforeEach((to, from, next) => {
             if (store.getters.roles.length === 0) {
                 store.dispatch('GetInfo').then(res => { // 拉取用户信息
 
-                    next({ ...to, replace: true })
+                    store.dispatch('generateRoutes').then((res) => { // 拉取路由表
+
+                    next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+                    })
 
                 }).catch((err) => {
 

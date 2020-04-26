@@ -33,9 +33,10 @@ export function logout() {
     })
 }
 
-export function getPermissions() {
+export function getMenus(token) {
     return request({
-        url: '/api/permission/menu',
-        method: 'get'
+        url: '/api/web/menu',
+        method: 'get',
+        params: { token }
     })
 }
