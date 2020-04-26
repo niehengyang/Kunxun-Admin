@@ -1,4 +1,5 @@
 import { asyncRoutes, constantRoutes } from '../../router/index'
+import {getInfo,getPermissions} from "../../apis/portalApi";
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -36,7 +37,7 @@ export function filterAsyncRoutes(routes, roles) {
 
 const state = {
   routes: [],
-  addRoutes: []
+  addRoutes: [],
 };
 
 const mutations = {
@@ -48,18 +49,37 @@ const mutations = {
 
 const actions = {
 
+  // generateRoutes({ commit }, roles) {
+  //   return new Promise(resolve => {
+  //     let accessedRoutes;
+  //     if (roles.includes('admin')) {
+  //       accessedRoutes = asyncRoutes || []
+  //     } else {
+  //       accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+  //     }
+  //     commit('SET_ROUTES', accessedRoutes);
+  //     resolve(accessedRoutes)
+  //   })
+  // }
   generateRoutes({ commit }, roles) {
-    return new Promise(resolve => {
-      let accessedRoutes;
-      if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      }
-      commit('SET_ROUTES', accessedRoutes);
-      resolve(accessedRoutes)
+    return new Promise((resolve, reject) => {
+      getPermissions(state.token).then(response => {
+        const data = response.data;
+        // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+        //   commit('SET_ROLES', data.roles)
+        // } else {
+        //   reject('getInfo: roles must be a non-null array !')
+        // }
+        // commit('SET_NAME', data.name);
+        // commit('SET_AVATAR', data.avatar);//头像
+        commit('SET_PERMISSIONS', data.permissions);//权限树
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
     })
   }
+
 };
 
 export default {
