@@ -4,13 +4,12 @@
     <!--<div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>-->
 
     <!------左侧菜单------>
-    <sidebar class="sidebar-container"></sidebar>
+    <sidebar v-if="navLocation == 'sidebar'" class="sidebar-container"></sidebar>
 
-    <div class="main-container">
+    <div class="main-container" :style="navLocation == 'sidebar' ? 'margin-left: 210px;' : '0'">
 
       <!------递增导航------>
-      <!--<navbar></navbar>-->
-<!--      <div>test</div>-->
+      <navbar></navbar>
 
       <!---------主要内容------------>
       <app-main></app-main>
@@ -23,6 +22,11 @@ import { Navbar, Sidebar, AppMain } from './components'
 
 export default {
   name: 'layout',
+    data(){
+      return {
+          navLocation: 'sidebar',//topbar  导航栏显示位置
+      }
+    },
   components: {
     Navbar,
     Sidebar,
@@ -98,7 +102,7 @@ export default {
     overflow: hidden;
     background: #6959CD;
   }
-  .main-container{
-    margin-left: 210px;
-  }
+  /*.main-container{*/
+  /*  margin-left: 210px;*/
+  /*}*/
 </style>

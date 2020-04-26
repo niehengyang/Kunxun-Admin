@@ -112,7 +112,7 @@
                     "#14d7f1",
                     "#e23c66"
                 ], //阴影颜色列表
-                directionList: ["leftTop", "leftBottom", "rightTop", "rightBottom"], //星星运行方向
+                directionList: ["leftTop", "lftBottom", "rightTop", "rightBottom"], //星星运行方向
                 speed: 10, //星星运行速度
                 last_star_created_time: new Date(), //上次重绘星星时间
                 Ball: class Ball {
