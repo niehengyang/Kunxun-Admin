@@ -11,7 +11,7 @@ import router from '../src/router/index'
 
 
 //权限校验
-import'./utils/permission'
+// import'./utils/permission'
 
 
 new Vue({

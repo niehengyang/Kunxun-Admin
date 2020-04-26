@@ -1,6 +1,7 @@
 
 const defaultSettings = require('./src/settings.js');
 const name = defaultSettings.title || 'vue Element Admin'; // page title
+const path = require('path');
 
 module.exports = {
 
@@ -14,7 +15,9 @@ module.exports = {
         // it can be accessed in index.html to inject the correct title.
         name: name,
         resolve: {
-
+            alias: {
+                '~css': path.resolve('./src/assets/css')
+            }
         }
     },
     devServer: {
@@ -35,6 +38,13 @@ module.exports = {
                 pathRewrite: {
                     '^/api': ''
                 }
+            }
+        }
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                data: `@import '~css/app.css';`
             }
         }
     }

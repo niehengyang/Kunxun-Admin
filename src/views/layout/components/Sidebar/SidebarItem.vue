@@ -67,5 +67,9 @@ export default {
   .el-submenu .el-menu-item{
     background: #7171C6 !important;
   }
+  .el-submenu .el-menu-item:hover{
+    background: #473c8b !important;
+  }
+
 
 </style>
