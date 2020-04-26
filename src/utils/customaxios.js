@@ -8,7 +8,8 @@
  */
 import Vue from 'vue'
 import axios from "axios";
-
+import store from '../store'
+import TokenFactory from './tokenfactory' // get token from cookie
 // 创建axios实例
 const service = axios.create({
     baseURL: process.env.BASE_API, // api的base_url
@@ -28,16 +29,14 @@ const toLogin = ()=>{
         message : '登录超时，请重新登录。3秒后将跳回登录页',
         onClose:() => {
             TokenFactory.clearToken();
-            // window.location.href = '/login';
-            this.$router.push({path: '/login'});
+            window.location.href = '/login';
         }
     });
 };
 
 //跳转到404页面
 const to404Page = ()=>{
-    // window.location.href = '/404';
-    this.$router.push({path: '/404'});
+    window.location.href = '/404';
 };
 
 //请求失败的错误统一处理
@@ -64,13 +63,12 @@ const errorHandler = (status,msg)=>{
  // 请求拦截器
 service.interceptors.request.use(
     config => {
-        if (TokenFactory.getToken()) { //判断token是否存在
+        if (store.getters.token) { //判断token是否存在
             config.headers = {
                 'Authorization': 'Bearer'+' '+TokenFactory.getToken(),
                 'X-Requested-With': 'XMLHttpRequest'
             }
         }
-
         return config;
     },
     err => {
@@ -80,7 +78,6 @@ service.interceptors.request.use(
 
 //响应拦截器
 service.interceptors.response.use(res =>{
-
         //请求成功时
         if (res.data.code >= 300){
             errorHandler(res.data.code,res.data.msg);

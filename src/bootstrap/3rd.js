@@ -4,7 +4,6 @@
  *
  */
 import Vue from 'vue'
-
 import Cookies from 'js-cookie'
 
 import baseVueRouter from 'vue-router'; //引入vue-router

@@ -33,8 +33,9 @@ const user = {
         Login({ commit }, userInfo) {
             const username = userInfo.username.trim();
             return new Promise((resolve, reject) => {
-                login(username, userInfo.password).then(response => {
-                    const data = response;
+                    login(username, userInfo.password,userInfo.captcha).then(response => {
+                    const data = response.data;
+                        console.log(data);
                     TokenFactory.setToken(data.token);
                     commit('SET_TOKEN', data.token);
                     resolve()
@@ -48,16 +49,16 @@ const user = {
         GetInfo({ commit, state }) {
             return new Promise((resolve, reject) => {
                 getInfo(state.token).then(response => {
-                    const data = response;
+                    const data = response.data;
                     if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
                         commit('SET_ROLES', data.roles)
                     } else {
                         reject('getInfo: roles must be a non-null array !')
                     }
                     commit('SET_NAME', data.name);
-                    commit('SET_AVATAR', data.avatar);//头像
+                    // commit('SET_AVATAR', data.avatar);//头像
                     commit('SET_PERMISSIONS', data.permissions);//权限树
-                    resolve(response)
+                    resolve(response.data)
                 }).catch(error => {
                     reject(error)
                 })
