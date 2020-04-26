@@ -10,6 +10,7 @@ import Vue from 'vue'
 import axios from "axios";
 import store from '../store'
 import TokenFactory from './tokenfactory' // get token from cookie
+
 // 创建axios实例
 const service = axios.create({
     baseURL: process.env.BASE_API, // api的base_url
@@ -43,9 +44,9 @@ const to404Page = ()=>{
 const errorHandler = (status,msg)=>{
     switch (status){
         case 304:  errorTip('请求无更改(304)');break;
-        case 400:  errorTip('错误的请求(400)');break;
+        case 400:  errorTip('参数验证错误(400)');break;
         case 401: toLogin(); break;
-        case 403: errorTip('禁止访问(403)'); break;
+        case 403: errorTip('无权限操作(403)'); break;
         case 404: to404Page(); break;
         case 408: errorTip('请求超时');break;
         case 500: errorTip( msg? msg:'服务器错误(500)'); break;

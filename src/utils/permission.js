@@ -35,9 +35,8 @@ router.beforeEach((to, from, next) => {
 
                     store.dispatch('generateRoutes').then((res) => { // 拉取路由表
 
-                    next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+                    next({ ...to, replace: true });
                     })
-
                 }).catch((err) => {
 
                     store.dispatch('FedLogOut').then(() => {
