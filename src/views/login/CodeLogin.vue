@@ -14,16 +14,16 @@
             </el-input>
         </el-form-item>
         <el-form-item>
-            <el-button size="small" type="primary" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+            <el-button size="small" type="primary" @click.native.prevent="handleLogin" class="login-submit" disabled>登录</el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script>
-    const MSGINIT = '发送验证码'
+    const MSGINIT = '发送验证码';
     // const MSGERROR = '验证码发送失败'
-    const MSGSCUCCESS = '${time}秒后重发'
-    const MSGTIME = 60
+    const MSGSCUCCESS = '${time}秒后重发';
+    const MSGTIME = 60;
     import { isvalidatemobile } from '@/utils/validate'
     export default {
         name: 'codelogin',
@@ -34,14 +34,14 @@
                 } else {
                     callback()
                 }
-            }
+            };
             const validateCode = (rule, value, callback) => {
                 if (value.length !== 4) {
                     callback(new Error('请输入4位数的验证码'))
                 } else {
                     callback()
                 }
-            }
+            };
             return {
                 msgText: MSGINIT,
                 msgTime: MSGTIME,
@@ -63,16 +63,18 @@
         props: [],
         methods: {
             handleSend() {
-                if (this.msgKey) return
-                this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
-                this.msgKey = true
+                if (this.msgKey) return;
+                this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime);
+                this.msgKey = true;
+
+                console.log('发送短信');
                 const time = setInterval(() => {
-                    this.msgTime--
-                    this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+                    this.msgTime--;
+                    this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime);
                     if (this.msgTime === 0) {
-                        this.msgTime = MSGTIME
-                        this.msgText = MSGINIT
-                        this.msgKey = false
+                        this.msgTime = MSGTIME;
+                        this.msgText = MSGINIT;
+                        this.msgKey = false;
                         clearInterval(time)
                     }
                 }, 1000)

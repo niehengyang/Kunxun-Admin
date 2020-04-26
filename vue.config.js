@@ -1,6 +1,7 @@
 
 const defaultSettings = require('./src/settings.js');
-const name = defaultSettings.title || 'vue Element Admin'; // page title
+const name = defaultSettings.title || 'little boy'; // page title
+// const name = defaultSettings.title || 'vue Element Admin'; // page title
 const path = require('path');
 
 module.exports = {
@@ -9,7 +10,16 @@ module.exports = {
     lintOnSave: false, // 关闭eslint
     runtimeCompiler: true,
     publicPath: '/',
+
+    // build时构建文件的目录 构建时传入 --no-clean 可关闭该行为
     outputDir: 'dist',
+
+    // build时放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录
+    assetsDir: '',
+
+    // 默认在生成的静态资源文件名中包含hash以控制缓存
+    filenameHashing: true,
+
     configureWebpack: {
         // provide the app's title in webpack's name field, so that
         // it can be accessed in index.html to inject the correct title.
