@@ -1,7 +1,7 @@
 <template>
     <div class="login-container pull-height">
         <div class="login-info text-white animated fadeInLeft">
-            <div class="logo" style="margin-top:-426px">
+            <div class="logo" style="margin-top:-200px">
                 <img src="../../assets/images/home/logo.png" width="160px" height="160px" alt="logo" style="vertical-align: middle;" />
             </div>
             <h2 class="login-info-title">{{website.info.title}}</h2>
