@@ -61,3 +61,11 @@ export default {
   }
 }
 </script>
+
+
+<style>
+  .el-submenu .el-menu-item{
+    background: #7171C6 !important;
+  }
+
+</style>

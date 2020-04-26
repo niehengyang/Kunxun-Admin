@@ -10,6 +10,7 @@
 
       <!------递增导航------>
       <!--<navbar></navbar>-->
+<!--      <div>test</div>-->
 
       <!---------主要内容------------>
       <app-main></app-main>
@@ -83,5 +84,21 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 999;
+  }
+  .sidebar-container{
+    transition: width .28s;
+    width: 210px !important;
+    height: 100%;
+    position: fixed;
+    font-size: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+    background: #6959CD;
+  }
+  .main-container{
+    margin-left: 210px;
   }
 </style>
