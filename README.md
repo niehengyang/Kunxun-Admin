@@ -1,4 +1,4 @@
-# hello-word
+# little-boy
 
 ## Project setup
 ```

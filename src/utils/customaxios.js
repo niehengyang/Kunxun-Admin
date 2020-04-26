@@ -95,6 +95,7 @@ service.interceptors.response.use(res =>{
     if(error.response.data.message.includes('timeout')){   // 判断请求异常信息中是否含有超时timeout字符串
         errorHandler(408,error.response.data.message);
     }
+
     return Promise.reject(error);
 });
 

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+      <router-view  class="app-router-view"></router-view>
   </div>
 </template>
 <style src="../src/assets/css/app.css"></style>
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style>
-#app {
+#app .app-router-view{
   position: absolute;
   top: 0;
   left: 0;
