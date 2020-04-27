@@ -26,8 +26,7 @@ const user = {
             const username = userInfo.username.trim();
             return new Promise((resolve, reject) => {
                     login(username, userInfo.password,userInfo.captcha).then(response => {
-                    const data = response.data;
-                        console.log(data);
+                    const data = response;
                     TokenFactory.setToken(data.token);
                     commit('SET_TOKEN', data.token);
                     resolve()
@@ -41,10 +40,10 @@ const user = {
         GetInfo({ commit, state }) {
             return new Promise((resolve, reject) => {
                 getInfo(state.token).then(response => {
-                    const data = response.data;
+                    const data = response;
                     commit('SET_NAME', data.name); //名称
-                    // commit('SET_AVATAR', data.avatar);//头像
-                    resolve(response.data)
+                    // // commit('SET_AVATAR', data.avatar);//头像
+                    resolve(response)
                 }).catch(error => {
                     reject(error)
                 })

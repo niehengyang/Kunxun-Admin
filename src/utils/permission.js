@@ -33,9 +33,10 @@ router.beforeEach((to, from, next) => {
             if (store.getters.permission_routers.length === 0){
                 store.dispatch('GetInfo').then(res => { // 拉取用户信息
 
+                    console.log(res);
                     store.dispatch('generateRoutes').then((res) => { // 拉取路由表
 
-                    next({ ...to, replace: true });
+                        next({ ...to, replace: true });
                     })
                 }).catch((err) => {
 

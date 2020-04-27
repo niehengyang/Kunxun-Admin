@@ -1,4 +1,4 @@
-# little-boy
+# Boom
 
 ## Project setup
 ```

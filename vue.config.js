@@ -1,8 +1,6 @@
 
 const defaultSettings = require('./src/settings.js');
-const name = defaultSettings.title || 'little boy'; // page title
-// const name = defaultSettings.title || 'vue Element Admin'; // page title
-const path = require('path');
+const name = defaultSettings.title || 'Boom'; // page title
 
 module.exports = {
 
@@ -25,23 +23,25 @@ module.exports = {
         // it can be accessed in index.html to inject the correct title.
         name: name,
         resolve: {
-            alias: {
-                '~css': path.resolve('./src/assets/css')
-            }
+
         }
     },
     devServer: {
+
+        host: '0.0.0.0',
         //devServer监听的端口
         port: 8080,
         https: false,
+        hotOnly: false,
         //配置代理
         proxy: {
             //拦截的url
             '/api':{
                 //转发到目标服务器的url
-                target: "http://192.168.10.10:9501/",
+                target: "http://39.100.122.207:8901",
                 //是否代理websockets,可选
                 ws: true,
+                secure: false,
                 //是否修改Host头部，可选
                 changeOrigin: true,
                 //修改请求路径
@@ -50,12 +50,5 @@ module.exports = {
                 }
             }
         }
-    },
-    css: {
-        // loaderOptions: {
-        //     sass: {
-        //         prependData: `@import '~css/app.css';`
-        //     }
-        // }
     }
 };

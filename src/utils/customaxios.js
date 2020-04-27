@@ -9,11 +9,12 @@
 import Vue from 'vue'
 import axios from "axios";
 import store from '../store'
-import TokenFactory from './tokenfactory' // get token from cookie
+import TokenFactory from './tokenfactory'
+const BASE_URL = process.env.VUE_APP_API_URL;
 
 // 创建axios实例
 const service = axios.create({
-    baseURL: process.env.BASE_API, // api的base_url
+    baseURL: BASE_URL, // api的base_url
     timeout: 5000 // 请求超时时间
 });
 
@@ -66,8 +67,9 @@ service.interceptors.request.use(
     config => {
         if (store.getters.token) { //判断token是否存在
             config.headers = {
-                'Authorization': 'Bearer'+' '+TokenFactory.getToken(),
-                'X-Requested-With': 'XMLHttpRequest'
+                'Authorization': TokenFactory.getToken(),
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
             }
         }
         return config;
