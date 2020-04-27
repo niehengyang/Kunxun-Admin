@@ -25,11 +25,6 @@ export const constantRoutes = [
     {
         path: '/',
         component: layout,
-        redirect: '/dashboard/dashboard'
-    },
-    {
-        path: '/dashboard',
-        component: layout,
         children: [
             {
                 path: 'dashboard',
@@ -54,7 +49,7 @@ export const constantRoutes = [
         hidden: true
     },
     {
-        path: '/layout',
+        path: '/',
         component: layout,
         children: asyncRoutes,
         hidden: true

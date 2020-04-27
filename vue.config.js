@@ -2,6 +2,7 @@
 const defaultSettings = require('./src/settings.js');
 const name = defaultSettings.title || 'Boom'; // page title
 
+
 module.exports = {
 
     //防止eslint乱报错
