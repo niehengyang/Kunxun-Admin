@@ -1,4 +1,4 @@
-
+import request from '../utils/customaxios'
 
 const restfulApi = {
 
@@ -9,9 +9,11 @@ const restfulApi = {
      * @returns {*}
      */
     list(uri, params = {}){
-        return axios.get('/api/' + uri, {
-            params: params
-        })
+        return request({
+            url: '/api/' + uri,
+            method: 'get',
+            data: params
+        });
     },
 
     /**
@@ -21,7 +23,11 @@ const restfulApi = {
      * @returns {*}
      */
     item(uri, id){
-        return axios.get('/api/' + uri + '/' + id);
+        return request({
+            url: '/api/' + uri + '/' + id,
+            method: 'get',
+            data: ''
+        });
     },
 
     /**
@@ -31,7 +37,11 @@ const restfulApi = {
      * @returns {*}
      */
     create(uri, params){
-        return axios.post('/api/' + uri, params);
+        return request({
+            url: '/api/' + uri,
+            method: 'post',
+            data: params
+        });
     },
 
     /**
@@ -42,7 +52,11 @@ const restfulApi = {
      * @returns {IDBRequest | Promise<void>}
      */
     edit(uri, id, params){
-        return axios.put('/api/' + uri + '/' + id, params);
+        return request({
+            url: '/api/' + uri + '/' + id,
+            method: 'put',
+            data: params
+        });
     },
 
     /**
@@ -52,7 +66,11 @@ const restfulApi = {
      * @returns {*}
      */
     delete(uri, id){
-        return axios.delete('/api/' + uri + '/' + id);
+        return request({
+            url: '/api/' + uri + '/' + id,
+            method: 'delete',
+            data: ''
+        });
     },
 };
 
