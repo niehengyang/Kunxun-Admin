@@ -9,7 +9,7 @@
       text-color="white"
       active-text-color="#42b983"
     >
-      <sidebar-item :routes="permissionsData"></sidebar-item>
+      <sidebar-item :routes="permission_routers"></sidebar-item>
     </el-menu>
   </el-scrollbar>
 </template>

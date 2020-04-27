@@ -9,7 +9,6 @@ Vue.config.productionTip = false;
 import store from '../src/store/index'
 import router from '../src/router/index'
 
-
 //权限校验
 import'./utils/permission'
 

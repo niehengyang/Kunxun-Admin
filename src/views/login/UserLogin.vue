@@ -44,8 +44,8 @@
             };
             return {
                 loginForm: {
-                    username: 'admin',
-                    password: '123456'
+                    username: '',
+                    password: ''
                 },
                 submitLoading: false,
                 checked: false,

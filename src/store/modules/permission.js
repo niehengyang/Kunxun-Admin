@@ -1,3 +1,4 @@
+import { getMenus} from '../../apis/portalApi'
 
 const permission = {
   state: {

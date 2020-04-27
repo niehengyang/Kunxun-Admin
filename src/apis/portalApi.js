@@ -6,12 +6,12 @@
 
 import request from '../utils/customaxios'
 
-export function login(username, password,captcha) {
+export function login(loginname, password,captcha) {
     return request({
-        url: '/api/user/login',
+        url: '/api/auth/login/web',
         method: 'post',
         data: {
-            username,
+            loginname,
             password,
             captcha
         }
@@ -20,7 +20,7 @@ export function login(username, password,captcha) {
 
 export function getInfo(token) {
     return request({
-        url: '/api/user/info',
+        url: '/api/web/user',
         method: 'get',
         params: { token }
     })
