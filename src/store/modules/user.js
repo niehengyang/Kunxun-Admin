@@ -53,11 +53,11 @@ const user = {
         // 登出
         LogOut({ commit, state }) {
             return new Promise((resolve, reject) => {
-                logout(state.token).then(() => {
+                logout(state.token).then((res) => {
                     commit('SET_TOKEN', '');
                     commit('SET_MENUS', []);//权限树
                     TokenFactory.clearToken();
-                    resolve()
+                    resolve(res)
                 }).catch(error => {
                     reject(error)
                 })

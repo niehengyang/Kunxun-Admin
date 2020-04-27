@@ -31,8 +31,10 @@ router.beforeEach((to, from, next) => {
             console.log('____________初次登录_____________');
 
             if (store.getters.permission_routers.length === 0){
+                console.log('____________用户信息_____________');
                 store.dispatch('GetInfo').then(res => { // 拉取用户信息
 
+                    console.log('____________用户权限_____________');
                     store.dispatch('generateRoutes').then((res) => { // 拉取路由表
 
                         next({ ...to, replace: true });

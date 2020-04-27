@@ -10,7 +10,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>个人信息</el-dropdown-item>
-                    <el-dropdown-item>退出</el-dropdown-item>
+                    <el-dropdown-item @click="handleLogout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -28,7 +28,11 @@
 
         },
         methods: {
-
+            handleLogout(){
+                this.$store.dispatch('LogOut').then(res => {
+                    console.log(res);
+                });
+            }
         }
     }
 </script>
