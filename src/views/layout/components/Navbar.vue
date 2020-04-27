@@ -1,6 +1,8 @@
 <template>
     <div class="nav-bar">
-        <div>logo</div>
+        <div>
+            logo
+        </div>
         <div>
             <el-dropdown>
                 <span class="el-dropdown-link">
