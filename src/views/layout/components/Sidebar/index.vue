@@ -3,11 +3,14 @@
     <el-menu
       mode="vertical"
       :show-timeout="200"
-      :default-active="$route.path"
+      :default-active="$route.name"
       :collapse="isCollapse"
       background-color="#6959CD"
       text-color="white"
       active-text-color="#42b983"
+      @open="handleOpen"
+      @close="handleClose"
+      @select="handleMenuSelect"
     >
       <sidebar-item :routes="permission_routers"></sidebar-item>
     </el-menu>
@@ -34,6 +37,20 @@ export default {
 
     isCollapse() {
       // return !this.sidebar.opened
+    }
+  },
+  methods:{
+    handleOpen(key, keyPath) {
+      this.$emit('submenuOpen',key, keyPath);
+      // console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      this.$emit('submenuClose',key, keyPath);
+      // console.log(key, keyPath);
+    },
+    handleMenuSelect(key, keyPath){
+      this.$emit('menuSelect',key, keyPath);
+      // console.log(key, keyPath);
     }
   }
 }

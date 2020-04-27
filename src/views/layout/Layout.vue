@@ -4,7 +4,8 @@
     <!--<div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>-->
 
     <!------左侧菜单------>
-    <sidebar v-if="navLocation == 'sidebar'" class="sidebar-container"></sidebar>
+    <sidebar v-if="navLocation == 'sidebar'" class="sidebar-container" v-on:submenuOpen="handleSubmenuOpen"
+             v-on:submenuClose="handleSubmenuClose" v-on:menuSelect="handleMenuSelect"></sidebar>
 
     <div class="main-container" :style="navLocation == 'sidebar' ? 'margin-left: 210px;' : '0'">
 
@@ -43,6 +44,23 @@ export default {
   },
   methods: {
 
+    //组合菜单打开
+    handleSubmenuOpen(key, keyPath){
+      console.log(key, keyPath);
+    },
+    //组合菜单关闭
+    handleSubmenuClose(key, keyPath){
+      console.log(key, keyPath);
+    },
+
+    //菜单选中
+    handleMenuSelect(key, keyPath){
+      switch (key) {
+        case 'dashboard': window.location.href = '/dashboard';
+          break;
+        default: this.$router.push({name: key,query: ''});
+      }
+    }
   }
 }
 </script>
