@@ -129,7 +129,7 @@
             'edit-component': EditComponent
         },
         created() {
-            // this.initData();
+            this.initData();
         },
         methods:{
 
@@ -139,7 +139,7 @@
                     page: this.currentPage
                 };
                 this.tableLoading = true;
-                this.$api.restfulApi.list('permission/list',params).then((res)=>{
+                this.$api.restfulApi.list('web/menu',params).then((res)=>{
                     this.tableData = res.data;
                     this.currentPage = res.paginate.current_page;
                     this.totalNumber = res.paginate.total;
