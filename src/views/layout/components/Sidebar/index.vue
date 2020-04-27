@@ -112,6 +112,6 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
   .el-scrollbar__wrap{
-    overflow-x: hidden;
+    overflow-x: hidden !important;
   }
 </style>

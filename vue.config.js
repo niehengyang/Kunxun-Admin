@@ -52,10 +52,10 @@ module.exports = {
         }
     },
     css: {
-        loaderOptions: {
-            sass: {
-                data: `@import '~css/app.css';`
-            }
-        }
+        // loaderOptions: {
+        //     sass: {
+        //         prependData: `@import '~css/app.css';`
+        //     }
+        // }
     }
 };
