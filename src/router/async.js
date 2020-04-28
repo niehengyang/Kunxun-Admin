@@ -18,8 +18,8 @@ export const asyncRouter = [
 
   {
     path: '/user/',
-    name:'account.uer.index',
-    component: () => import('../views/account/uer/Index.vue'),
+    name:'account.user.index',
+    component: () => import('../views/account/user/Index.vue'),
   },
 
   {
