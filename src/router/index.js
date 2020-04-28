@@ -1,6 +1,20 @@
-import Router from "vue-router";
+import VueRouter from 'vue-router';
+
 
 import layout from '../views/layout/Layout.vue';
+
+const routeArray = [];
+
+
+/* 加载权限路由模块 */
+import AccountRouterArray from "./modules/account";
+import RoleRouterArray from "./modules/role";
+import PermissionRouterArray from "./modules/permission";
+import PersonalRouterArray from "./modules/personal";
+
+
+export const asyncRoutes = routeArray.concat(AccountRouterArray,RoleRouterArray,PermissionRouterArray,PersonalRouterArray);
+
 
 
 /**

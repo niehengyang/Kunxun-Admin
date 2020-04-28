@@ -10,33 +10,40 @@
             <el-table
                     :data="tableData"
                     style="width: 100%"
-                    row-key="id"
+                    row-key="uid"
                     lazy
                     :load="load"
                     :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
 
                 <el-table-column
-                        prop="id"
-                        label="ID">
+                        type="index">
                 </el-table-column>
 
                 <el-table-column
-                        prop="display_name"
+                        prop="name"
                         label="菜单名称"
                         width="180">
                 </el-table-column>
+
                 <el-table-column
-                        prop="uri"
                         label="路由">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.router == null">--</span>
+                        <span v-else>{{scope.row.router}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="uid"
+                        label="uid">
                 </el-table-column>
                 <el-table-column
                         prop="icon"
                         label="图标">
                 </el-table-column>
-                <el-table-column
-                        prop="sort"
-                        label="排序">
-                </el-table-column>
+<!--                <el-table-column-->
+<!--                        prop="sort"-->
+<!--                        label="排序">-->
+<!--                </el-table-column>-->
                 <el-table-column
                         prop="status"
                         label="状态">
@@ -45,13 +52,16 @@
                         <el-tag v-else type="info">禁用</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column
-                        prop="created_at"
-                        label="创建时间"
-                        width="180">
-                </el-table-column>
-                <el-table-column label="操作">
+<!--                <el-table-column-->
+<!--                        prop="created_at"-->
+<!--                        label="创建时间"-->
+<!--                        width="180">-->
+<!--                </el-table-column>-->
+                <el-table-column label="操作" width="220">
                     <template slot-scope="scope">
+                        <el-button size="mini"
+                                   @click="handleAdd(scope.$index, scope.row.uid)"
+                        >添加</el-button>
                         <el-button
                                 size="mini"
                                 @click="handleEdit(scope.$index, scope.row.id)">编辑</el-button>
@@ -65,31 +75,33 @@
         </el-row>
 
 
-        <el-row class="pagination-box">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    background
-                    :page-size="pageSize"
-                    :page-sizes="[10, 20, 30, 40]"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="totalNumber">
-            </el-pagination>
-        </el-row>
+<!--        <el-row class="pagination-box">-->
+<!--            <el-pagination-->
+<!--                    @size-change="handleSizeChange"-->
+<!--                    @current-change="handleCurrentChange"-->
+<!--                    :current-page="currentPage"-->
+<!--                    background-->
+<!--                    :page-size="pageSize"-->
+<!--                    :page-sizes="[10, 20, 30, 40]"-->
+<!--                    layout="total, sizes, prev, pager, next, jumper"-->
+<!--                    :total="totalNumber">-->
+<!--            </el-pagination>-->
+<!--        </el-row>-->
 
         <el-row class="dialog-box">
             <el-dialog
                     title="添加权限"
                     :visible.sync="addVisible"
+                    :modal-append-to-body='false'
                     width="50%"
                     :before-close="handleCloseAdd">
-                <create-component v-on:closeAdd="handleCloseAdd" v-on:submitCreate="submitCreate"></create-component>
+                <create-component :addUid="addUid" v-on:closeAdd="handleCloseAdd" v-on:submitCreate="submitCreate"></create-component>
             </el-dialog>
 
             <el-dialog
                     title="编辑权限"
                     :visible.sync="editVisible"
+                    :modal-append-to-body='false'
                     width="50%"
                     :before-close="handleCloseEdit">
                 <edit-component v-on:closeEdit="handleCloseEdit" :init-loading="editFormLoading" :edit-data="editForm" v-on:submitEdit="submitEdit"></edit-component>
@@ -121,6 +133,7 @@
                 editForm: {},
                 editFormLoading: false,
                 editVisible: false,
+                addUid: ''
 
             }
         },
@@ -157,7 +170,10 @@
             },
 
             //添加
-            handleAdd(){
+            handleAdd(index, uid){
+                console.log(index, uid)
+                this.addUid = uid
+                console.log('addUid', this.addUid)
                 this.addVisible = true;
             },
 

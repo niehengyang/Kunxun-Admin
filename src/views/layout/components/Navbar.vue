@@ -4,13 +4,13 @@
             <img src="../../../assets/images/home/logo.png" alt="">
         </div>
         <div class="info">
-            <el-dropdown>
+            <el-dropdown  @command="handleCommand">
                 <span class="el-dropdown-link">
                    您好，{{$store.state.user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>个人信息</el-dropdown-item>
-                    <el-dropdown-item @click="handleLogout">退出</el-dropdown-item>
+                    <el-dropdown-item command="info">个人信息</el-dropdown-item>
+                    <el-dropdown-item command="loginOut">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
             <div class="avatar">
@@ -31,11 +31,23 @@
 
         },
         methods: {
-            handleLogout(){
-                this.$store.dispatch('LogOut').then(res => {
-                    console.log(res);
-                });
+            handleCommand(command){
+                console.log(command)
+                if(command == 'info'){
+                    this.$router.push('/personal')
+                }else{
+                    this.$confirm('确定要退出系统吗？', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: "warning"
+                    }).then(() => {
+                        this.$store.dispatch('LogOut').then(res => {
+                            console.log(res);
+                        });
+                    })
+                }
             }
+
         }
     }
 </script>

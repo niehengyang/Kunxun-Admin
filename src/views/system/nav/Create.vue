@@ -1,12 +1,12 @@
 <template>
   <div>
-    Add
+    Create
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Add',
+    name: 'Create',
     components:{
 
     },
