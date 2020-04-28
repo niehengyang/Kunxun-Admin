@@ -25,7 +25,7 @@ import SidebarItem from './SidebarItem'
 export default {
   data(){
     return{
-
+      isCollapse: false,
     }
   },
   components: { SidebarItem},
@@ -34,10 +34,6 @@ export default {
       'sidebar',
       'permission_routers'
     ]),
-
-    isCollapse() {
-      // return !this.sidebar.opened
-    }
   },
   methods:{
     handleOpen(key, keyPath) {

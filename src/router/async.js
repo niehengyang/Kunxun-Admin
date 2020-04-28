@@ -5,17 +5,17 @@
  */
 export const asyncRouters = [
     {
-        path: '/account/list/',
+        path: '/account/',
         name: 'accountList',
         component: ()=> import('../views/account/Index.vue'),
     },
     {
-        path: '/permission/list/',
+        path: '/permission/',
         name: 'permissionList',
         component: ()=> import('../views/permission/Index.vue'),
     },
     {
-        path: '/role/list/',
+        path: '/role/',
         name: 'roleList',
         component: ()=> import('../views/role/Index.vue'),
     },
