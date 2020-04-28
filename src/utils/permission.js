@@ -15,6 +15,22 @@ import 'nprogress/nprogress.css' // progress bar style
 import TokenFactory from './tokenfactory' // get token from cookie
 
 
+
+/**
+ * 判断是否与当前用户权限匹配
+ * @param permissions
+ * @param route
+ */
+function hasPermission(permissions, route) {
+    if (route.name) {
+        let scar = route.name;
+        return permissions.indexOf(scar) >= 0; //方法一
+        // return permissions.some(perm => perm == scar) //方法二
+    } else {
+        return true
+    }
+}
+
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const whiteList = ['/login','/401','/404']; // 不重定向白名单
@@ -37,8 +53,14 @@ router.beforeEach((to, from, next) => {
                     console.log('____________用户权限_____________');
                     store.dispatch('generateRoutes').then((res) => { // 拉取路由表
 
-                        next({ ...to, replace: true });
-                    })
+                        router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
+
+                        console.log('____________用户菜单_____________');
+                        store.dispatch('GetMenuTree').then((res) => { // 拉取菜单
+
+                            next({ ...to, replace: true });
+                        });
+                    });
                 }).catch((err) => {
 
                     store.dispatch('FedLogOut').then(() => {
@@ -47,7 +69,7 @@ router.beforeEach((to, from, next) => {
                     })
                 })
             } else{
-                next();
+                next()//
             }
 
         }

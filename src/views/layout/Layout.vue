@@ -46,20 +46,21 @@ export default {
 
     //组合菜单打开
     handleSubmenuOpen(key, keyPath){
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     //组合菜单关闭
     handleSubmenuClose(key, keyPath){
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
 
     //菜单选中
     handleMenuSelect(key, keyPath){
-      switch (key) {
-        case 'dashboard': window.location.href = '/dashboard';
-          break;
-        default: this.$router.push({name: key,query: ''});
-      }
+      console.log(key, keyPath);
+      // switch (key) {
+      //   case 'dashboard': window.location.href = '/dashboard';
+      //     break;
+      //   default: this.$router.push({path: keyPath,query: ''});
+      // }
     }
   }
 }

@@ -39,7 +39,8 @@ module.exports = {
             //拦截的url
             '/api':{
                 //转发到目标服务器的url
-                target: "http://39.100.122.207:8901",
+                // target: "http://39.100.122.207:8901",
+                target: "http://127.0.0.1:9501",
                 //是否代理websockets,可选
                 ws: true,
                 secure: false,

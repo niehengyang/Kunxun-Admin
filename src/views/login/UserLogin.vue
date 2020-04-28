@@ -98,15 +98,6 @@
                                 this.submitLoading = false;
                                 window.location.href = '/';
                             }).catch( (error) =>{
-                                let message = "程序错误!";
-                                if(error.response){
-                                    message =  error.response.data.message;
-                                    // 打印错误信息
-                                    this.$message({
-                                        message: message,
-                                        type: 'error'
-                                    });
-                                }
                                 this.submitLoading = false;
                                 this.loginForm.password = oldPwd;
                                 // this.getCaptcha();
