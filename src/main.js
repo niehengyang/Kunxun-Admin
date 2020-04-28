@@ -8,6 +8,11 @@ Vue.config.productionTip = false;
 
 import store from '../src/store/index'
 import router from '../src/router/index'
+console.log(process.env)
+
+/* api统一出口 */
+import apis from '../src/apis/index'
+Vue.prototype.$api = apis
 
 //权限校验
 import'./utils/permission'
