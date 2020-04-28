@@ -1,27 +1,31 @@
-
 /**
- * 权限路由
- * this page have permission requirements
- */
-export const asyncRouters = [
-    {
-        path: '/account/list/',
-        name: 'accountList',
-        component: ()=> import('../views/account/Index.vue'),
-    },
-    {
-        path: '/permission/list/',
-        name: 'permissionList',
-        component: ()=> import('../views/permission/Index.vue'),
-    },
-    {
-        path: '/role/list/',
-        name: 'roleList',
-        component: ()=> import('../views/role/Index.vue'),
-    },
-    {
-        path: '/system',
-        name: 'system',
-        component: ()=> import('../views/account/Index.vue'),
-    }
-];
+* 权限路由
+* this page have permission requirements
+*/
+export const asyncRouter = [
+
+  {
+    path: '/nav/',
+    name:'system.nav.index',
+    component: () => import('../views/system/nav/Index.vue'),
+  },
+
+  {
+    path: '/web/',
+    name:'system.web.index',
+    component: () => import('../views/system/web/Index.vue'),
+  },
+
+  {
+    path: '/user/',
+    name:'account.uer.index',
+    component: () => import('../views/account/uer/Index.vue'),
+  },
+
+  {
+    path: '/role/',
+    name:'account.role.index',
+    component: () => import('../views/account/role/Index.vue'),
+  },
+
+]
