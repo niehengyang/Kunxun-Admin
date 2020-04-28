@@ -6,8 +6,8 @@
 
                 <el-form-item label="权限性质" prop="type">
                     <el-radio-group v-model="addForm.type" @change="handleChangeType">
-                        <el-radio label="nav">导航</el-radio>
-                        <el-radio label="api">操作</el-radio>
+                        <el-radio label="0">导航</el-radio>
+                        <el-radio label="1">操作</el-radio>
                     </el-radio-group>
                 </el-form-item>
 
@@ -15,33 +15,33 @@
                     <el-input class="form-input" v-model="addForm.name" placeholder="请输入菜单名称"></el-input>
                 </el-form-item>
 
-                <el-form-item label="显示名称" prop="display_name">
-                    <el-input class="form-input" v-model="addForm.display_name" placeholder="请输入菜单显示名称"></el-input>
+                <el-form-item label="显示名称" prop="uidName">
+                    <el-input class="form-input" v-model="addForm.uidName" placeholder="请输入菜单显示名称"></el-input>
                 </el-form-item>
 
-                <el-form-item label="上级菜单" prop="parent_id">
-                    <el-select class="form-input" v-model="addForm.parent_id" placeholder="请选择上级菜单" @visible-change="handleMenuOption">
-                        <el-option v-for="permission in permissionOptions" :label="permission.display_name" :value="permission.id"></el-option>
-                    </el-select>
-                </el-form-item>
+<!--                <el-form-item label="上级菜单" prop="parent_id">-->
+<!--                    <el-select class="form-input" v-model="addForm.parent_id" placeholder="请选择上级菜单" @visible-change="handleMenuOption">-->
+<!--                        <el-option v-for="permission in permissionOptions" :label="permission.display_name" :value="permission.id"></el-option>-->
+<!--                    </el-select>-->
+<!--                </el-form-item>-->
 
                 <el-form-item label="路由/Router" prop="route">
                     <el-input class="form-input" v-model="addForm.route" placeholder="请输入路由（/*）"></el-input>
                 </el-form-item>
 
-                <el-form-item label="图标类型" prop="icon_type" v-if="addForm.type == 'nav'">
+                <el-form-item label="图标类型" prop="icon_type" v-if="addForm.type == '0'">
                     <el-radio-group v-model="addForm.icon_type" @change="handleChangeType">
-                        <el-radio label="nav">引用</el-radio>
-                        <el-radio label="api">上传</el-radio>
-                        <el-radio label="das">序列化</el-radio>
+                        <el-radio label="1">引用</el-radio>
+                        <el-radio label="2">上传</el-radio>
+                        <el-radio label="3">序列化</el-radio>
                     </el-radio-group>
                 </el-form-item>
 
-                <el-form-item label="导航图标" prop="icon" v-if="addForm.icon_type == 'nav'">
+                <el-form-item label="导航图标" prop="icon" v-if="addForm.icon_type == '1'">
                     <el-input class="form-input" v-model="addForm.icon" placeholder="请输入导航图标"></el-input>
                 </el-form-item>
 
-                <el-form-item label="上传图标" prop="icon" v-if="addForm.icon_type == 'api'">
+                <el-form-item label="上传图标" prop="icon" v-if="addForm.icon_type == '2'">
                     <el-upload
                             class="icon-uploader"
                             action="https://jsonplaceholder.typicode.com/posts/"
@@ -54,27 +54,27 @@
                     </el-upload>
                 </el-form-item>
 
-                <el-form-item label="序列化图标" prop="icon" v-if="addForm.icon_type == 'das'">
+                <el-form-item label="序列化图标" prop="icon" v-if="addForm.icon_type == '3'">
 
                 </el-form-item>
 
-                <el-form-item label="导航标识" prop="index_value" v-if="addForm.type == 'nav'" :rules="[
-                        { required: true, message: '请输入导航标识', trigger: 'blur' },
-                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
-                    ]">
-                    <el-input class="form-input" v-model="addForm.index_value" placeholder="请输入导航标识"></el-input>
-                    <el-row class="annotation-item"><span style="color: red">注：</span>该参数将用于导航定位，请与路由name相同</el-row>
-                </el-form-item>
+<!--                <el-form-item label="导航标识" prop="index_value" v-if="addForm.type == 'nav'" :rules="[-->
+<!--                        { required: true, message: '请输入导航标识', trigger: 'blur' },-->
+<!--                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }-->
+<!--                    ]">-->
+<!--                    <el-input class="form-input" v-model="addForm.index_value" placeholder="请输入导航标识"></el-input>-->
+<!--                    <el-row class="annotation-item"><span style="color: red">注：</span>该参数将用于导航定位，请与路由name相同</el-row>-->
+<!--                </el-form-item>-->
 
-                <el-form-item label="状态" prop="status">
-                    <el-switch
-                            v-model="addForm.status"
-                            active-color="#13ce66"
-                            inactive-color="#ff4949"
-                            active-value='1'
-                            inactive-value='0'>
-                    </el-switch>
-                </el-form-item>
+<!--                <el-form-item label="状态" prop="status">-->
+<!--                    <el-switch-->
+<!--                            v-model="addForm.status"-->
+<!--                            active-color="#13ce66"-->
+<!--                            inactive-color="#ff4949"-->
+<!--                            active-value='1'-->
+<!--                            inactive-value='0'>-->
+<!--                    </el-switch>-->
+<!--                </el-form-item>-->
 
                 <el-form-item label="排序" prop="sort">
                     <el-input class="form-input" v-model="addForm.sort" placeholder="请输入排序号"></el-input>
@@ -95,6 +95,7 @@
 <script>
     export default {
         name: "create",
+        props: ['addUid'],
         data(){
             return{
                 addLoading: false,
@@ -116,7 +117,7 @@
                         { required: true, message: '请输入菜单名称', trigger: 'blur' },
                         { min: 1, max: 100, message: '长度在 3 到 100 个字符', trigger: 'blur' }
                     ],
-                    display_name: [
+                    uidName: [
                         { required: true, message: '请输入菜单显示名称', trigger: 'blur' },
                         { min: 1, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur' }
                     ],
@@ -142,10 +143,13 @@
 
         },
         watch:{
-
+            addUid: function (newVal) {
+                this.addUid = newVal
+                console.log(this.addUid)
+            }
         },
         created(){
-
+            //console.log(this.addUid)
         },
         methods: {
 
@@ -154,8 +158,10 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.addLoading = true;
-                        let type = this.addForm.type;
-                        this.$api.restfulApi.create('permission/create', this.addForm).then((res) => {
+                        // let type = this.addForm.type;
+                        this.addForm.parentUid = this.addUid
+                        console.log(this.addForm)
+                        this.$api.restfulApi.create('web/permission/store', this.addForm).then((res) => {
                             this.handleFormClose(formName);
                             this.$message.success({showClose: true, message: res.msg, duration: 2000});
                             this.$emit('submitCreate', type);

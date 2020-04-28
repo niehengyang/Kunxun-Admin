@@ -10,9 +10,10 @@ const routeArray = [];
 import AccountRouterArray from "./modules/account";
 import RoleRouterArray from "./modules/role";
 import PermissionRouterArray from "./modules/permission";
+import PersonalRouterArray from "./modules/personal";
 
 
-export const asyncRoutes = routeArray.concat(AccountRouterArray,RoleRouterArray,PermissionRouterArray);
+export const asyncRoutes = routeArray.concat(AccountRouterArray,RoleRouterArray,PermissionRouterArray,PersonalRouterArray);
 
 
 
