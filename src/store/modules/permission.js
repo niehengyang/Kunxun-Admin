@@ -1,6 +1,6 @@
 import { getMenus,getMenuTree} from '../../apis/portalApi'
-
 import {asyncRouters} from "../../router/async";
+import {constantRoutes} from "../../router";
 
 
 
@@ -61,8 +61,8 @@ const permission = {
           let accessedRouters;
           if (data && data.length > 0) { // 验证返回的data是否是一个非空数组
             accessedRouters = filterAsyncRouter(asyncRouters, data);
-            commit('SET_ROUTERS', accessedRouters);
-            console.log(accessedRouters);
+            constantRoutes[0].children = constantRoutes[0].children.concat(accessedRouters);
+            commit('SET_ROUTERS', constantRoutes);
           } else {
             reject('getMenus: menus must be a non-null array !')
           }

@@ -56,11 +56,11 @@ export default {
     //菜单选中
     handleMenuSelect(key, keyPath){
       console.log(key, keyPath);
-      // switch (key) {
-      //   case 'dashboard': window.location.href = '/dashboard';
-      //     break;
-      //   default: this.$router.push({path: keyPath,query: ''});
-      // }
+      switch (key) {
+        case 'dashboard': window.location.href = '/dashboard';
+          break;
+        default: this.$router.push({name: key,query: ''});
+      }
     }
   }
 }
