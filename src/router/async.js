@@ -3,7 +3,7 @@
  * 权限路由
  * this page have permission requirements
  */
-export const asyncRouter = [
+export const asyncRouters = [
     {
         path: '/account/list/',
         name: 'accountList',
@@ -19,4 +19,9 @@ export const asyncRouter = [
         name: 'roleList',
         component: ()=> import('../views/role/Index.vue'),
     },
+    {
+        path: '/system',
+        name: 'system',
+        component: ()=> import('../views/account/Index.vue'),
+    }
 ];

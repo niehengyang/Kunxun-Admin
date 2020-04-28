@@ -35,6 +35,14 @@ export function logout() {
 
 export function getMenus(token) {
     return request({
+        url: '/api/web/perm',
+        method: 'get',
+        params: { token }
+    })
+}
+
+export function getMenuTree(token) {
+    return request({
         url: '/api/web/menu',
         method: 'get',
         params: { token }
