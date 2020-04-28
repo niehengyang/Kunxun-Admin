@@ -1,12 +1,12 @@
 <template>
   <div>
-    Add
+    Index
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Add',
+    name: 'Index',
     components:{
 
     },
